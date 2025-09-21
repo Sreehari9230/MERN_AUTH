@@ -1,9 +1,10 @@
-import express from "express"
 
-export const signup = async (req,res) => {
-try {
-    res.send("signUp route")
-} catch (error) {
-    
+export const signup = async (req, res) => {
+        res.send("signup")
 }
+export const login = async (req, res) => {
+    res.send("login")
+}
+export const logout = async (req, res) => {
+    res.send("login")
 }

@@ -30,13 +30,4 @@ const userSchema = new mongoose.Schema({
 
 export const User = mongoose.model('User', userSchema)
 
-
-
-
-
-
-
-
-
-
 // created and updated at filed will automatically will be adeed to the document

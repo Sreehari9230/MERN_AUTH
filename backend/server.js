@@ -6,17 +6,16 @@ import authRoutes from "./routes/auth.route.js"
 dotenv.config();
 
 const app = express();
-// env ||
-app.get("/", (req,res)=>{
+const PORT = process.env.PORT || 5000
+
+app.get("/", (req, res) => {
     res.send("Hello World")
 })
 
 app.use("/api/auth", authRoutes)
 
-app.listen(5000, () => {
+app.listen(PORT, () => {
     connectDB();
-    console.log("server is running on port 3000");
-}) 
-// env port
- 
- 
+    console.log(`Server is Running on PORT: ${PORT}`);
+})
+
