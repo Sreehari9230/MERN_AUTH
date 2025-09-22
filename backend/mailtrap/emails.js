@@ -11,13 +11,12 @@ export const sendVerificationEmail = async (email, verificationToken) => {
             subject: "Verify your email",
             html: VERIFICATION_EMAIL_TEMPLATE.replace("{verificationCode}", verificationToken),
             category: "Email Verification"
-        })
+        });
 
         console.log("Email send Successfully", response);
 
     } catch (error) {
         console.log(`Error in sending email verificatin: ${error}`);
-        
-        throw new Error(`Error in sending email verificatin: ${error}`)
+        throw new Error(`Error in sending email verificatin: ${error}`);
     }
-}
+};
