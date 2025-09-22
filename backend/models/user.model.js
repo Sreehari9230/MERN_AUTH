@@ -28,6 +28,5 @@ const userSchema = new mongoose.Schema({
     verificationTokenExpiresAt: Date,
 }, { timestamps: true });
 
-export const User = mongoose.model('User', userSchema)
-
+export const User = mongoose.model('User', userSchema);
 // created and updated at filed will automatically will be adeed to the document
