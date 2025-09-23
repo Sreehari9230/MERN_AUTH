@@ -57,7 +57,7 @@ export const verifyEmail = async (req, res) => {
         })
 
         if (!user) {
-            return res.status(500).json({ success: false, message: "invalid verifu code" })
+            return res.status(500).json({ success: false, message: "Invalid Verification Code" })
         }
         user.isVerified = true;
         user.verificationToken = undefined
@@ -68,13 +68,13 @@ export const verifyEmail = async (req, res) => {
         await sendWelcomeEmail(user.email, user.name)
 
         return res.status(200).json({
-            success: true, message: "verification email welcom sendsuccessfully user verified", user: {
+            success: true, message: "Email Verifided and Welcome Email Send", user: {
                 ...user._doc,
                 password: undefined
             }
         })
     } catch (error) {
-        console.log("error in verify email");
+        console.log("Error in VerifyEmail");
         return res.status(500).json({ success: false, message: error.message })
     }
 }
