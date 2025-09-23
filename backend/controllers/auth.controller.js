@@ -49,7 +49,7 @@ export const signup = async (req, res) => {
 
 export const verifyEmail = async (req, res) => {
     const { code } = req.body
-    
+
     try {
         const user = await User.findOne({
             verificationToken: code,
@@ -66,20 +66,17 @@ export const verifyEmail = async (req, res) => {
         await user.save();
 
         await sendWelcomeEmail(user.email, user.name)
+
         return res.status(200).json({
             success: true, message: "verification email welcom sendsuccessfully user verified", user: {
                 ...user._doc,
                 password: undefined
             }
         })
-
     } catch (error) {
         console.log("error in verify email");
-
         return res.status(500).json({ success: false, message: error.message })
-
     }
-
 }
 export const login = async (req, res) => {
     res.send("login")
