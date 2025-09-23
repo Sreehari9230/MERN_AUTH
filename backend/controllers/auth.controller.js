@@ -2,7 +2,7 @@ import { generateKey } from "crypto";
 import { User } from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js";
-import { sendVerificationEmail } from "../mailtrap/emails.js";
+import { sendVerificationEmail, sendWelcomeEmail } from "../mailtrap/emails.js";
 
 export const signup = async (req, res) => {
     const { email, password, name } = req.body;
@@ -46,6 +46,41 @@ export const signup = async (req, res) => {
         res.status(400).json({ success: false, mesaage: error.message });
     }
 };
+
+export const verifyEmail = async (req, res) => {
+    const { code } = req.body
+    
+    try {
+        const user = await User.findOne({
+            verificationToken: code,
+            verificationTokenExpiresAt: { $gt: Date.now() }
+        })
+
+        if (!user) {
+            return res.status(500).json({ success: false, message: "invalid verifu code" })
+        }
+        user.isVerified = true;
+        user.verificationToken = undefined
+        user.verificationTokenExpiresAt = undefined
+
+        await user.save();
+
+        await sendWelcomeEmail(user.email, user.name)
+        return res.status(200).json({
+            success: true, message: "verification email welcom sendsuccessfully user verified", user: {
+                ...user._doc,
+                password: undefined
+            }
+        })
+
+    } catch (error) {
+        console.log("error in verify email");
+
+        return res.status(500).json({ success: false, message: error.message })
+
+    }
+
+}
 export const login = async (req, res) => {
     res.send("login")
 };
