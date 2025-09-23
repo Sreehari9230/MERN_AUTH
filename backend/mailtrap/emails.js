@@ -1,4 +1,5 @@
-import { MailtrapClient } from "mailtrap";
+// import { MailtrapClient } from "mailtrap";
+
 import { PASSWORD_RESET_REQUEST_TEMPLATE, PASSWORD_RESET_SUCCESS_TEMPLATE, VERIFICATION_EMAIL_TEMPLATE } from "./emailTemplates.js";
 import { MailTrapClient, sender } from "./mailtrap.config.js";
 
@@ -24,7 +25,6 @@ export const sendVerificationEmail = async (email, verificationToken) => {
 
 export const sendWelcomeEmail = async (email, name) => {
     const recepient = [{ email }]
-
     try {
         const response = await MailTrapClient.send({
             from: sender,
@@ -34,15 +34,14 @@ export const sendWelcomeEmail = async (email, name) => {
                 "company_info_name": "Mern Auth",
                 "name": name
             }
-        })
+        });
         console.log("Welcome Email Send Successfully", response);
 
     } catch (error) {
         console.log(`Error in sending  welcome email: ${error}`);
-        throw new Error(`Error in sending velcome email: ${error}`);
-
+        throw new Error(`Error in sending welcome email: ${error}`);
     }
-}
+};
 
 export const sendPasswordResetEmail = async (email, resetURL) => {
     const recepient = [{ email }];
@@ -54,17 +53,17 @@ export const sendPasswordResetEmail = async (email, resetURL) => {
             html: PASSWORD_RESET_REQUEST_TEMPLATE.replace("{resetURL}", resetURL),
             category: "Password Reset",
 
-        })
+        });
         console.log("Reset Password Email sent", response);
 
     } catch (error) {
         console.log(`Error in sending  reset password email: ${error}`);
         throw new Error(`Error in sending reset password email: ${error}`);
     }
-}
+};
 
 export const sendResetSuccessEmail = async (email) => {
-    const recepient = [{ email }]
+    const recepient = [{ email }];
     try {
         const response = await MailTrapClient.send({
             from: sender,
@@ -73,11 +72,11 @@ export const sendResetSuccessEmail = async (email) => {
             html: PASSWORD_RESET_SUCCESS_TEMPLATE,
             category: "Password Reset",
 
-        })
-        console.log("Password resent success email send succes", response);
+        });
+        console.log("Password Reset Success Email Sent Successfully", response);
 
     } catch (error) {
-        console.log(`Error in sending  reset password  success email: ${error}`);
-        throw new Error(`Error in sending reset password  success email: ${error}`);
+        console.log(`Error in sending  password reset  success email: ${error}`);
+        throw new Error(`Error in sending password reset   success email: ${error}`);
     }
-}
+};
