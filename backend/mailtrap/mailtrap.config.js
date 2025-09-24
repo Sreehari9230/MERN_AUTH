@@ -1,4 +1,5 @@
 import { MailtrapClient } from "mailtrap";
+import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -15,6 +16,22 @@ export const sender = {
     email: "hello@demomailtrap.co",
     name: "Mern Auth",
 };
+
+// import dotenv from "dotenv";
+
+// dotenv.config();
+
+// Create transporter
+export const transporter = nodemailer.createTransport({
+    service: "gmail",  // or use host/port if needed
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+    },
+});
+
+
+
 // const recipients = [
 //     {
 //         email: "sreeharimangalasseri528@gmail.com",
@@ -30,3 +47,5 @@ export const sender = {
 //         category: "Integration Test",
 //     })
 //     .then(console.log, console.error);
+
+
