@@ -6,15 +6,15 @@ export const verifyToken = (req, res, next) => {
         if (!token) {
             return res.status(401).json({ success: false, message: "Unauthorized no token provided" });
         }
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         if (!decoded) {
             return res.status(401).json({ success: false, message: "Invalid token" });
         }
 
-        req.userId = decoded.userId
+        req.userId = decoded.userId;
         next();
     } catch (error) {
         console.log("Error in VerifyToken", error);
         return res.status(500).json({ success: false, message: error.message });
     }
-}
+};

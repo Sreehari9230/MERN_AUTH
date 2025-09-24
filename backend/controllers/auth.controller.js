@@ -82,7 +82,8 @@ export const verifyEmail = async (req, res) => {
         console.log("Error in VerifyEmail Function");
         return res.status(500).json({ success: false, message: error.message });
     }
-}
+};
+
 export const login = async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -112,10 +113,12 @@ export const login = async (req, res) => {
 
     }
 };
+
 export const logout = async (req, res) => {
     res.clearCookie("token");
     return res.status(200).json({ success: true, message: "Logged out Successfully" });
 };
+
 export const forgotPassword = async (req, res) => {
     const { email } = req.body;
     try {
@@ -140,7 +143,7 @@ export const forgotPassword = async (req, res) => {
         console.log("Error in forgotPassword Function");
         return res.status(500).json({ success: false, message: error.message });
     }
-}
+};
 
 export const resetPassword = async (req, res) => {
     try {
@@ -172,14 +175,14 @@ export const resetPassword = async (req, res) => {
         console.log("error in resetPassword");
         return res.status(500).json({ success: false, message: error.mesaage });
     }
-}
+};
 
 export const checkAuth = async (req, res) => {
     try {
-        const user = await User.findById(req.userId)
+        const user = await User.findById(req.userId);
         if (!user) {
             return res.status(400).json({ success: false, message: "user nt found" });
-        }
+        };
         res.status(200).json({
             success: true, user: {
                 ...user._doc,
@@ -191,4 +194,4 @@ export const checkAuth = async (req, res) => {
         console.log("error in checkAuthFunction", error);
         return res.status(500).json({ success: false, message: error.mesaage });
     }
-}
+};
