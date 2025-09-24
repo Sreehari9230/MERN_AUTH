@@ -1,7 +1,6 @@
-import { MailtrapClient } from "mailtrap";
 
 import { PASSWORD_RESET_REQUEST_TEMPLATE, PASSWORD_RESET_SUCCESS_TEMPLATE, VERIFICATION_EMAIL_TEMPLATE, WELCOME_EMAIL_TEMPLATE } from "./emailTemplates.js";
-import { MailTrapClient, sender, transporter } from "./mailtrap.config.js";
+import { transporter } from "./nodemailer.config.js";
 
 import dotenv from "dotenv";
 

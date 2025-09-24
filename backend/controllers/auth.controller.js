@@ -8,7 +8,7 @@ import {
     sendResetSuccessEmail,
     sendVerificationEmail,
     sendWelcomeEmail
-} from "../mailtrap/emails.js";
+} from "../mail/email.service.js";
 
 
 export const signup = async (req, res) => {
@@ -131,7 +131,7 @@ export const forgotPassword = async (req, res) => {
         user.resetPasswordExpiresAt = resetTokenExpiresAt;
 
         await user.save();
-console.log(user, user.email,"hahaha")
+        console.log(user, user.email, "hahaha")
         // send email
         await sendPasswordResetEmail(user.email, `${process.env.CLIENT_URL}/reset-password/${resetToken}`);
 
