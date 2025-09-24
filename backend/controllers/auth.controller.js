@@ -170,6 +170,25 @@ export const resetPassword = async (req, res) => {
 
     } catch (error) {
         console.log("error in resetPassword");
-        return res.status(400).json({ success: false, message: error.mesaage });
+        return res.status(500).json({ success: false, message: error.mesaage });
+    }
+}
+
+export const checkAuth = async (req, res) => {
+    try {
+        const user = await User.findById(req.userId)
+        if (!user) {
+            return res.status(400).json({ success: false, message: "user nt found" });
+        }
+        res.status(200).json({
+            success: true, user: {
+                ...user._doc,
+                password: undefined
+            }
+        });
+
+    } catch (error) {
+        console.log("error in checkAuthFunction", error);
+        return res.status(500).json({ success: false, message: error.mesaage });
     }
 }
